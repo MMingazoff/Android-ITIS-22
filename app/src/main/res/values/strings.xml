@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">AndroidTestProject</string>
+    <string name="app_name">Different implicit intents examples</string>
+    <string name="share_link">Open a cool video</string>
+    <string name="share_cat">Share a cat photo</string>
+    <string name="choose_pic">Choose a picture</string>
+    <string name="photo_desc">😍 What a fabulous photo! 😍</string>
 </resources>
