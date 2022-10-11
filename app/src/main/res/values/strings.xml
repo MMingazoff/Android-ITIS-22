@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">AndroidTestProject</string>
+    <string name="go_to_second_fragment">To second fragment</string>
+    <string name="increment">Increment counter value</string>
+    <string name="open_dialog">Open dialog fragment</string>
+    <string name="main_tv">Counter value: 0</string>
+    <string name="dialog_hint">Enter a number from 1 to 100</string>
+    <string name="positive_button">Positive</string>
+    <string name="neutral_button">Neutral</string>
+    <string name="negative_button">Negative</string>
+    <string name="error">Invalid data format</string>
 </resources>
