@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.AddAnimeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:text="@string/add_anime_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="32sp"
+            android:gravity="center" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:errorEnabled="true">
+
+            <EditText
+                android:id="@+id/et_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_title" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:errorEnabled="true">
+
+            <EditText
+                android:id="@+id/et_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_author" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_author"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:errorEnabled="true">
+
+            <EditText
+                android:id="@+id/et_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_description" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_poster"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:errorEnabled="true">
+
+            <EditText
+                android:id="@+id/et_poster"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_poster_uri" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_position"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_poster"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:errorEnabled="true">
+
+            <EditText
+                android:id="@+id/et_position"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_position" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/green"
+            android:text="@string/ok"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/til_position"
+            app:layout_constraintTop_toBottomOf="@id/til_position" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="@color/red"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="@id/til_position"
+            app:layout_constraintTop_toBottomOf="@id/til_position" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

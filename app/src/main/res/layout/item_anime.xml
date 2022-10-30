@@ -2,18 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="?selectableItemBackground"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground">
 
-    <ImageView
-        android:id="@+id/posterIv"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_poster"
         android:layout_width="80dp"
         android:layout_height="100dp"
-        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/cut_corners"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -25,41 +25,51 @@
         android:text="title"
         android:textColor="?android:textColorPrimary"
         app:layout_constraintBottom_toTopOf="@id/authorTv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/posterIv"
-        app:layout_constraintTop_toTopOf="@id/posterIv" />
+        app:layout_constraintEnd_toStartOf="@+id/iv_delete"
+        app:layout_constraintStart_toEndOf="@id/iv_poster"
+        app:layout_constraintTop_toTopOf="@id/iv_poster" />
 
     <TextView
         android:id="@+id/authorTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="author"
-        app:layout_constraintBottom_toBottomOf="@+id/posterIv"
+        android:textColor="@color/grey"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_poster"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/titleTv"
-        app:layout_constraintTop_toBottomOf="@id/titleTv"
-        android:textColor="@color/grey"/>
+        app:layout_constraintTop_toBottomOf="@id/titleTv" />
 
     <TextView
         android:id="@+id/rating_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="7.1"
         android:fontFamily="@font/jetbrains_mono_bold"
-        android:textSize="14sp"
+        android:text="7.1"
         android:textColor="?android:textColorPrimary"
-        app:layout_constraintBottom_toBottomOf="@+id/star"
-        app:layout_constraintEnd_toStartOf="@+id/star"
-        app:layout_constraintTop_toTopOf="@+id/star" />
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_star"
+        app:layout_constraintEnd_toStartOf="@+id/iv_star"
+        app:layout_constraintTop_toTopOf="@+id/iv_star" />
 
     <ImageView
-        android:id="@+id/star"
+        android:id="@+id/iv_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/star_icon"
+        android:layout_margin="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/star"
-        app:layout_constraintBottom_toBottomOf="@+id/authorTv"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/delete_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/titleTv" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

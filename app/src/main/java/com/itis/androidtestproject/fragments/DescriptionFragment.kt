@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.itis.androidtestproject.R
 import com.itis.androidtestproject.databinding.FragmentDescriptionBinding
-import com.itis.androidtestproject.model.AnimeRepository
+import com.itis.androidtestproject.model.Repository
 
 class DescriptionFragment(private val anime_id: Int): Fragment(R.layout.fragment_description) {
     private var binding: FragmentDescriptionBinding? = null
@@ -15,13 +15,13 @@ class DescriptionFragment(private val anime_id: Int): Fragment(R.layout.fragment
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDescriptionBinding.bind(view)
         binding?.run {
-            val anime = AnimeRepository.getAnime(anime_id)
+            val anime = Repository.getAnime(anime_id)
             toolbar.title = anime?.title
             ratingTv.text = anime?.rating.toString()
             descriptionTv.text = anime?.description
             Glide.with(this@DescriptionFragment)
                 .load(anime?.poster)
-                .into(posterIv)
+                .into(ivPoster)
         }
     }
 
