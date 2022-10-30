@@ -106,7 +106,7 @@ object Repository {
         )
     )
 
-    private var lastId = anime.maxBy { it.id }.id
+    private var lastId = anime.maxBy { it.id }.id + 1
 
     fun getAnimeSize() = anime.size
 
