@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">AndroidTestProject</string>
+    <string name="app_name">Список классных анимок</string>
+    <string name="rating_label">Рейтинг на Shikimori:</string>
+    <string name="description_label">Описание:</string>
+    <string name="add_title">Введите название аниме</string>
+    <string name="add_author">Введите имя автора</string>
+    <string name="add_description">Введите описание</string>
+    <string name="add_poster_uri">Введите URI фото обложки</string>
+    <string name="add_position">Введите на какую позицию вставить аниме</string>
+    <string name="ok">Добавить</string>
+    <string name="cancel">Отмена</string>
+    <string name="add_anime_title">Добавьте аниме</string>
+    <string name="error">Это поле не может быть пустым</string>
+    <string name="on_deleted">Аниме удалено!</string>
 </resources>
