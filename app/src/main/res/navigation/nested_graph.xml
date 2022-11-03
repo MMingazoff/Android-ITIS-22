@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nested_profile_graph"
+    app:startDestination="@id/profileFragment">
+
+    <fragment
+        android:id="@+id/aboutAppFragment"
+        android:name="com.itis.androidtestproject.fragments.profilefragments.AboutAppFragment"
+        android:label="AboutAppFragment" />
+    <fragment
+        android:id="@+id/accountInfoFragment"
+        android:name="com.itis.androidtestproject.fragments.profilefragments.AccountInfoFragment"
+        android:label="AccountInfoFragment" />
+    <fragment
+        android:id="@+id/contactUsFragment"
+        android:name="com.itis.androidtestproject.fragments.profilefragments.ContactUsFragment"
+        android:label="ContactUsFragment" />
+    <fragment
+        android:id="@+id/ordersHistoryFragment"
+        android:name="com.itis.androidtestproject.fragments.profilefragments.OrdersHistoryFragment"
+        android:label="OrdersHistoryFragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.itis.androidtestproject.fragments.profilefragments.SettingsFragment"
+        android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.itis.androidtestproject.fragments.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_aboutAppFragment"
+            app:destination="@id/aboutAppFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_contactUsFragment"
+            app:destination="@id/contactUsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_ordersHistoryFragment"
+            app:destination="@id/ordersHistoryFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_accountInfoFragment"
+            app:destination="@id/accountInfoFragment" />
+    </fragment>
+
+</navigation>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/profileContainerFragment">
+
+    <include app:graph="@navigation/nested_graph"/>
+
+    <fragment
+        android:id="@+id/profileContainerFragment"
+        android:name="com.itis.androidtestproject.fragments.ProfileContainerFragment"
+        android:label="ProfileContainerFragment">
+        <action
+            android:id="@+id/to_profileFragment"
+            app:destination="@id/nested_profile_graph"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/bonusCardFragment"
+        android:name="com.itis.androidtestproject.fragments.BonusCardFragment"
+        android:label="BonusCardFragment" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.itis.androidtestproject.fragments.CartFragment"
+        android:label="CartFragment" />
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="com.itis.androidtestproject.fragments.ShopFragment"
+        android:label="ShopFragment" />
+    <fragment
+        android:id="@+id/shopsLocationFragment"
+        android:name="com.itis.androidtestproject.fragments.ShopsLocationFragment"
+        android:label="ShopsLocationFragment" />
+</navigation>

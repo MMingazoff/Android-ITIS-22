@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">AndroidTestProject</string>
+    <string name="profile">Profile</string>
+    <string name="bonus_card">Bonus card</string>
+    <string name="shop">Shop</string>
+    <string name="shops_location">Shops</string>
+    <string name="cart">Cart</string>
+    <string name="about">About app</string>
+    <string name="account">Account info</string>
+    <string name="contact">Contact us</string>
+    <string name="orders">Orders history</string>
+    <string name="settings">Settings</string>
 </resources>
