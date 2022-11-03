@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nested_profile_graph"
+        android:icon="@drawable/profile_icon"
+        android:title="@string/profile" />
+
+    <item
+        android:id="@+id/shopFragment"
+        android:icon="@drawable/shop_icon"
+        android:title="@string/shop" />
+
+    <item
+        android:id="@+id/cartFragment"
+        android:icon="@drawable/cart_icon"
+        android:title="@string/cart" />
+
+    <item
+        android:id="@+id/bonusCardFragment"
+        android:icon="@drawable/bonus_card_icon"
+        android:title="@string/bonus_card" />
+
+    <item
+        android:id="@+id/shopsLocationFragment"
+        android:icon="@drawable/location_icon"
+        android:title="@string/shops_location" />
+
+</menu>
