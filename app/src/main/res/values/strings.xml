@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">AndroidTestProject</string>
+    <string name="app_name">My alarm clock</string>
+    <string name="choose_date">Choose date</string>
+    <string name="choose_time">Choose time</string>
+    <string name="change_date">Alarm date. Tap to change</string>
+    <string name="change_time">Alarm time. Tap to change</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="notification_channel_id">defaultchannelid</string>
+    <string name="notification_channel_name">Gachi alarm clock</string>
+    <string name="wake_up">Wake up, full master. \n We must pull up our pants</string>
+    <string name="title_notification">Your alarm went off</string>
+    <string name="text_notification">Wake up. Wake up. Wake up</string>
+    <string name="toast_set">Alarm has been set at %1$s</string>
+    <string name="toast_cancel">Alarm has been canceled</string>
+    <string name="date_error">Choose date</string>
+    <string name="time_error">Choose time</string>
+    <string name="pref_name">alarmSharedPrefs</string>
+    <string name="pref_key">timeinmillis</string>
 </resources>
