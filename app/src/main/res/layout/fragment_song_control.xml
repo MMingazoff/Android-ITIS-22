@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
-        android:src="@drawable/ic_play_big"
+        android:src="@drawable/ic_pause_big"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_next"
         app:layout_constraintStart_toEndOf="@+id/btn_previous"
@@ -84,5 +84,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/btn_previous" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

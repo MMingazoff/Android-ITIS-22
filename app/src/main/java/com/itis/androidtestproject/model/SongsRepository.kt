@@ -1,6 +1,5 @@
 package com.itis.androidtestproject.model
 
-import android.util.Log
 import com.itis.androidtestproject.R
 import com.itis.androidtestproject.Song
 

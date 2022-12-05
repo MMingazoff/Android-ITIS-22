@@ -7,27 +7,23 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
-import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
-import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.itis.androidtestproject.media.MediaAction
 import com.itis.androidtestproject.media.MediaService
 
 class NotificationProvider(private val context: Context) {
-    private val notificationManager: NotificationManager =
-        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
     fun showMediaNotification(isPlaying: Boolean, song: Song) {
+        val notificationManager: NotificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val pendingIntent = PendingIntent.getActivity(
             context,
-            0,
-            Intent(context, MainActivity::class.java),
-            PendingIntent.FLAG_IMMUTABLE,
-            Bundle().apply {
-                putParcelable(SONG, song as Parcelable)
-            }
+            6,
+            Intent(context, MainActivity::class.java).apply {
+                putExtra(SONG, song as Parcelable)
+                putExtra(IS_PLAYING, isPlaying)
+            },
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         val style = androidx.media.app.NotificationCompat.MediaStyle()
             .setShowActionsInCompactView()
@@ -68,7 +64,8 @@ class NotificationProvider(private val context: Context) {
         notificationManager.notify(NOTIFICATION_ID, builder.build())
     }
 
-    fun deleteMediaNotification() = notificationManager.cancel(NOTIFICATION_ID)
+    fun deleteMediaNotification() =
+        (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).cancel(NOTIFICATION_ID)
 
     private fun getPendingIntent(action: MediaAction): PendingIntent {
         val requestCode = when (action) {
@@ -95,6 +92,7 @@ class NotificationProvider(private val context: Context) {
     companion object {
         const val MEDIA_ACTION = "MEDIA_ACTION"
         const val SONG = "SONG"
+        const val IS_PLAYING = "IS_PLAYING"
         const val NOTIFICATION_ID = 1337
     }
 }

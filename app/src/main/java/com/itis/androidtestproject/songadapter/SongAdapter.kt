@@ -1,6 +1,5 @@
 package com.itis.androidtestproject.songadapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,7 @@ import com.itis.androidtestproject.utils.Click
 class SongAdapter(
     private val songs: List<Song>,
     private val getBinder: () -> MediaAidlInterface?,
-//    private val setBackground: (View, Song) -> Unit
+    private val setBackground: (View, Song) -> Unit
 ): RecyclerView.Adapter<SongHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SongHolder(
         SongItemBinding.inflate(
@@ -22,7 +21,7 @@ class SongAdapter(
             false
         ),
         getBinder,
-//        setBackground
+        setBackground
     )
 
     override fun onBindViewHolder(holder: SongHolder, position: Int) {

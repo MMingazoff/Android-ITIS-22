@@ -1,7 +1,6 @@
 package com.itis.androidtestproject.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,18 +12,21 @@ import com.itis.androidtestproject.databinding.FragmentSongControlBinding
 import com.itis.androidtestproject.model.SongsRepository
 
 class SongControlFragment(
+    private var song: Song,
+    private val isPlaying: Boolean?,
     private val getBinder: () -> MediaAidlInterface?
-): Fragment(R.layout.fragment_song_control) {
+) : Fragment(R.layout.fragment_song_control) {
     private var binding: FragmentSongControlBinding? = null
-    private var song = getBinder()?.currentSong!!
     private val songs = SongsRepository.songs
-    private var songIndex = SongsRepository.getSongIndex(song)
+    private var songIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentSongControlBinding.inflate(layoutInflater)
+        songIndex = SongsRepository.getSongIndex(song)
         setUI()
         setClickListeners()
+        setPlayButton(isPlaying)
     }
 
     private fun setClickListeners() {
@@ -71,10 +73,17 @@ class SongControlFragment(
         setPlayButton()
     }
 
-    private fun setPlayButton() {
+    private fun setPlayButton(isPlaying: Boolean? = null) {
         binding?.run {
-            getBinder()?.let {
-                if (it.isPlaying)
+            if (isPlaying == null) {
+                getBinder()?.let {
+                    if (it.isPlaying)
+                        btnPlay.setImageResource(R.drawable.ic_pause_big)
+                    else
+                        btnPlay.setImageResource(R.drawable.ic_play_big)
+                }
+            } else {
+                if (isPlaying)
                     btnPlay.setImageResource(R.drawable.ic_pause_big)
                 else
                     btnPlay.setImageResource(R.drawable.ic_play_big)
@@ -86,10 +95,7 @@ class SongControlFragment(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        setPlayButton()
-        return binding?.root
-    }
+    ): View? = binding?.root
 
     override fun onDestroy() {
         super.onDestroy()

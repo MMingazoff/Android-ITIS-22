@@ -1,12 +1,11 @@
 package com.itis.androidtestproject.fragments
 
-import android.app.Service
 import android.content.ComponentName
+import android.app.Service
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,11 +17,11 @@ import com.itis.androidtestproject.model.SongsRepository
 import com.itis.androidtestproject.songadapter.ItemSpacerDecoration
 import com.itis.androidtestproject.songadapter.SongAdapter
 
-class SongsFragment: Fragment(R.layout.fragment_songs) {
+class SongsFragment : Fragment(R.layout.fragment_songs) {
     private var binding: FragmentSongsBinding? = null
     private var binder: MediaAidlInterface? = null
-    private var isPlayingSong = SongsRepository.currentSong
-    private var isPlayingSongView: View? = null
+    private var playingSong = SongsRepository.currentSong
+    private var playingSongView: View? = null
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             binder = MediaAidlInterface.Stub.asInterface(service)
@@ -41,8 +40,8 @@ class SongsFragment: Fragment(R.layout.fragment_songs) {
             Service.BIND_AUTO_CREATE
         )
         arguments?.getParcelable<Song>(NotificationProvider.SONG)?.let {
-            Log.i("testik", it.toString())
             binder?.currentSong = it
+            val isPlaying = arguments?.getBoolean(NotificationProvider.IS_PLAYING)
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     android.R.anim.slide_in_left,
@@ -50,7 +49,7 @@ class SongsFragment: Fragment(R.layout.fragment_songs) {
                     android.R.anim.slide_in_left,
                     android.R.anim.slide_out_right
                 )
-                .replace(R.id.container, SongControlFragment { binder })
+                .replace(R.id.container, SongControlFragment(it, isPlaying) { binder })
                 .addToBackStack(null)
                 .commit()
         }
@@ -70,7 +69,7 @@ class SongsFragment: Fragment(R.layout.fragment_songs) {
             rvSongs.adapter = SongAdapter(
                 SongsRepository.songs,
                 { binder },
-//                { view, song -> setPlaying(view, song) }
+                { view, song -> setPlaying(view, song) }
             )
             btnSongDetails.setOnClickListener {
                 parentFragmentManager.beginTransaction()
@@ -80,34 +79,34 @@ class SongsFragment: Fragment(R.layout.fragment_songs) {
                         android.R.anim.slide_in_left,
                         android.R.anim.slide_out_right
                     )
-                    .replace(R.id.container, SongControlFragment { binder })
+                    .replace(
+                        R.id.container,
+                        SongControlFragment(binder?.currentSong!!, null) { binder })
                     .addToBackStack(null)
                     .commit()
             }
         }
     }
 
-//    private fun setPlaying(view: View, song: Song) {
-//        if (song != isPlayingSong) {
-//            isPlayingSongView?.setBackgroundResource(R.color.white)
-//            isPlayingSongView = view
-//            isPlayingSong = song
-//        }
-//        binder?.let {
-//            if (it.isPlaying)
-//                view.setBackgroundResource(R.color.grey_active)
-//            else
-//                view.setBackgroundResource(R.color.grey_paused)
-//        }
-//    }
+    private fun setPlaying(view: View, song: Song) {
+        if (song != playingSong) {
+            playingSongView?.setBackgroundResource(R.color.white)
+            playingSongView = view
+            playingSong = song
+        }
+        binder?.let {
+            if (it.isPlaying)
+                view.setBackgroundResource(R.color.grey_active)
+            else
+                view.setBackgroundResource(R.color.grey_paused)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return binding?.root
-    }
+    ): View? = binding?.root
 
     override fun onDestroy() {
         super.onDestroy()

@@ -4,7 +4,6 @@ import android.app.Service
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.IBinder
-import android.util.Log
 import com.itis.androidtestproject.MediaAidlInterface
 import com.itis.androidtestproject.NotificationProvider
 import com.itis.androidtestproject.Song
@@ -82,6 +81,7 @@ class MediaService : Service() {
         override fun stop() {
             mediaPlayer.pause()
             SongsRepository.currentSongTime = 0
+            notificationProvider?.deleteMediaNotification()
         }
 
         override fun isPlaying(): Boolean = mediaPlayer.isPlaying
@@ -113,8 +113,6 @@ class MediaService : Service() {
                 }
                 if (it == MediaAction.PLAY || it == MediaAction.PAUSE)
                     notificationProvider?.showMediaNotification(isPlaying, SongsRepository.currentSong)
-                if (it == MediaAction.STOP)
-                    notificationProvider?.deleteMediaNotification()
             }
         }
         return START_STICKY
@@ -124,6 +122,7 @@ class MediaService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        notificationProvider?.deleteMediaNotification()
         mediaPlayer.release()
     }
 
