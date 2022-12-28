@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">AndroidTestProject</string>
+    <string name="app_name">Todoshka</string>
+    <string name="title_hint">Title</string>
+    <string name="description_hint">Description</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
+    <string name="date">Date</string>
+    <string name="default_cords">Set my current coordinates</string>
+    <string name="info_toast">Please, wait a bit! Figuring out your location…</string>
+    <string name="add_new_todo">You have no TODO\'s.\nTry to create your first!</string>
+    <string name="delete_all">Delete everything</string>
+    <string name="change_theme">Change theme</string>
+    <string name="change_layout">Change layout</string>
+    <string name="required_error">This is required field!</string>
 </resources>

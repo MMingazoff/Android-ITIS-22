@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/tasksFragment">
+
+    <fragment
+        android:id="@+id/taskManagerFragment"
+        android:name="com.itis.androidtestproject.fragments.TaskManagerFragment"
+        android:label="TaskManagerFragment" />
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.itis.androidtestproject.fragments.TasksFragment"
+        android:label="TasksFragment" >
+        <action
+            android:id="@+id/action_tasksFragment_to_taskManagerFragment"
+            app:destination="@id/taskManagerFragment" />
+    </fragment>
+</navigation>
