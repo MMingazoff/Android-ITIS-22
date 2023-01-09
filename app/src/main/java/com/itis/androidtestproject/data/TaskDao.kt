@@ -10,7 +10,7 @@ import androidx.room.Update
 @Dao
 interface TaskDao {
     @Query("SELECT * FROM tasks WHERE id = :id")
-    fun get(id: Int): Task
+    fun get(id: Int): Task?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun add(task: Task)

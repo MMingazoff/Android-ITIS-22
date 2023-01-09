@@ -22,7 +22,7 @@ class TasksRepository(context: Context): TaskDao {
 
     override fun update(task: Task) = taskDao.update(task)
 
-    override fun get(id: Int): Task = taskDao.get(id)
+    override fun get(id: Int): Task? = taskDao.get(id)
 
     override fun getAll(): List<Task> = taskDao.getAll()
 

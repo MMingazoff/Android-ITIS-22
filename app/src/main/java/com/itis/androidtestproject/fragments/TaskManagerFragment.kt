@@ -49,52 +49,58 @@ class TaskManagerFragment : Fragment(R.layout.fragment_task_manager) {
                 setLocation()
             }
             btnSave.setOnClickListener {
-                val newTitle = etTitle.text.toString()
-                val newDescription = etDescription.text.toString()
-                if (newTitle.isEmpty())
-                    etTitle.error = context?.getString(R.string.required_error)
-                if (newDescription.isEmpty())
-                    etDescription.error = context?.getString(R.string.required_error)
-                if (newTitle.isEmpty() || newDescription.isEmpty())
-                    return@setOnClickListener
-                val longitude = etLongitude.text.toString().let {
-                    if (it.isNotEmpty())
-                        it.toDouble()
-                    else
-                        null
-                }
-                val latitude = etLatitude.text.toString().let {
-                    if (it.isNotEmpty())
-                        it.toDouble()
-                    else
-                        null
-                }
-                val date = if (etDate.text.isNotEmpty()) calendar.time else null
-                lifecycleScope.launch(Dispatchers.IO) {
-                    if (taskId != null)
-                        repository?.update(
-                            Task(
-                                id = taskId!!,
-                                title = newTitle,
-                                description = newDescription,
-                                longitude = longitude,
-                                latitude = latitude,
-                                date = date
-                            )
-                        )
-                    else
-                        repository?.add(
-                            Task(
-                                title = newTitle,
-                                description = newDescription,
-                                longitude = longitude,
-                                latitude = latitude,
-                                date = date
-                            )
-                        )
-                }
-                findNavController().navigateUp()
+                saveTask()
             }
+        }
+    }
+
+    private fun saveTask() {
+        binding?.run {
+            val newTitle = etTitle.text.toString()
+            val newDescription = etDescription.text.toString()
+            if (newTitle.isEmpty())
+                etTitle.error = context?.getString(R.string.required_error)
+            if (newDescription.isEmpty())
+                etDescription.error = context?.getString(R.string.required_error)
+            if (newTitle.isEmpty() || newDescription.isEmpty())
+                return
+            val longitude = etLongitude.text.toString().let {
+                if (it.isNotEmpty())
+                    it.toDouble()
+                else
+                    null
+            }
+            val latitude = etLatitude.text.toString().let {
+                if (it.isNotEmpty())
+                    it.toDouble()
+                else
+                    null
+            }
+            val date = if (etDate.text.isNotEmpty()) calendar.time else null
+            lifecycleScope.launch(Dispatchers.IO) {
+                if (taskId != null)
+                    repository?.update(
+                        Task(
+                            id = taskId!!,
+                            title = newTitle,
+                            description = newDescription,
+                            longitude = longitude,
+                            latitude = latitude,
+                            date = date
+                        )
+                    )
+                else
+                    repository?.add(
+                        Task(
+                            title = newTitle,
+                            description = newDescription,
+                            longitude = longitude,
+                            latitude = latitude,
+                            date = date
+                        )
+                    )
+            }
+            findNavController().navigateUp()
         }
     }
 

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.view.get
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -23,6 +24,7 @@ import com.itis.androidtestproject.recyclerview.TaskListAdapter
 import com.itis.androidtestproject.utils.LayoutType
 import com.itis.androidtestproject.utils.SpaceItemDecoration
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -90,58 +92,70 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.change_layout -> {
-                        val pref = activity?.getPreferences(Context.MODE_PRIVATE)
-                        binding?.run {
-                            when (adapter?.layoutType) {
-                                LayoutType.LINEAR -> {
-                                    adapter?.layoutType = LayoutType.GRID
-                                    rvTasks.layoutManager = GridLayoutManager(context, 2)
-                                    menuItem.setIcon(R.drawable.ic_linear)
-                                    pref?.edit()?.run {
-                                        putBoolean(LAYOUT_MODE, true)
-                                        commit()
-                                    }
-                                }
-                                LayoutType.GRID -> {
-                                    adapter?.layoutType = LayoutType.LINEAR
-                                    rvTasks.layoutManager = LinearLayoutManager(context)
-                                    menuItem.setIcon(R.drawable.ic_grid)
-                                    pref?.edit()?.run {
-                                        putBoolean(LAYOUT_MODE, false)
-                                        commit()
-                                    }
-                                }
-                                null -> throw java.lang.IllegalStateException()
-                            }
-                            // это не создание нового адаптера,
-                            // просто при переприсваивании обновляются вьюхолдеры
-                            rvTasks.adapter = adapter
-                        }
+                        onChangeLayoutClicked(menuItem)
                     }
                     R.id.delete_all -> {
-                        lifecycleScope.launch(Dispatchers.IO) {
-                            repository?.deleteAll()
-                        }
-                        adapter?.submitList(emptyList())
-                        binding?.tvStartMsg?.visibility = View.VISIBLE
+                        onDeleteAllClicked()
                     }
                     R.id.change_theme -> {
-                        nightMode = !nightMode
-                        val pref = activity?.getPreferences(Context.MODE_PRIVATE)
-                        if (nightMode) {
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                        } else {
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                        }
-                        pref?.edit()?.run {
-                            putBoolean(NIGHT_MODE, nightMode)
-                            commit()
-                        }
+                        onChangeThemeClicked()
                     }
                 }
                 return true
             }
         }, viewLifecycleOwner)
+    }
+
+    private fun onChangeLayoutClicked(menuItem: MenuItem) {
+        val pref = activity?.getPreferences(Context.MODE_PRIVATE)
+        binding?.run {
+            when (adapter?.layoutType) {
+                LayoutType.LINEAR -> {
+                    adapter?.layoutType = LayoutType.GRID
+                    rvTasks.layoutManager = GridLayoutManager(context, 2)
+                    menuItem.setIcon(R.drawable.ic_linear)
+                    pref?.edit()?.run {
+                        putBoolean(LAYOUT_MODE, true)
+                        commit()
+                    }
+                }
+                LayoutType.GRID -> {
+                    adapter?.layoutType = LayoutType.LINEAR
+                    rvTasks.layoutManager = LinearLayoutManager(context)
+                    menuItem.setIcon(R.drawable.ic_grid)
+                    pref?.edit()?.run {
+                        putBoolean(LAYOUT_MODE, false)
+                        commit()
+                    }
+                }
+                null -> throw java.lang.IllegalStateException()
+            }
+            // это не создание нового адаптера,
+            // просто при переприсваивании обновляются вьюхолдеры
+            rvTasks.adapter = adapter
+        }
+    }
+
+    private fun onDeleteAllClicked() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            repository?.deleteAll()
+        }
+        adapter?.submitList(emptyList())
+        binding?.tvStartMsg?.visibility = View.VISIBLE
+    }
+
+    private fun onChangeThemeClicked() {
+        nightMode = !nightMode
+        val pref = activity?.getPreferences(Context.MODE_PRIVATE)
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+        pref?.edit()?.run {
+            putBoolean(NIGHT_MODE, nightMode)
+            commit()
+        }
     }
 
     private fun setLayoutManager() {
@@ -157,16 +171,12 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
         }
     }
 
-    private suspend fun fillRvTasks() = withContext(Dispatchers.IO) {
-        val tasks = repository?.getAll()
-        withContext(Dispatchers.Main) {
-            adapter?.submitList(tasks)
-            binding?.tvStartMsg?.visibility =
-                if (tasks?.isEmpty() == true)
-                    View.VISIBLE
-                else
-                    View.GONE
+    private suspend fun fillRvTasks() {
+        val tasks = lifecycleScope.async(Dispatchers.IO) {
+            repository?.getAll()
         }
+        adapter?.submitList(tasks.await())
+        binding?.tvStartMsg?.isVisible = tasks.await()?.isEmpty() == true
     }
 
     override fun onDestroy() {
