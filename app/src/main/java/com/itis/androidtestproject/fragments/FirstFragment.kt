@@ -1,11 +1,8 @@
 package com.itis.androidtestproject.fragments
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.view.ViewGroup
 import com.itis.androidtestproject.Constant
 import com.itis.androidtestproject.R
 import com.itis.androidtestproject.databinding.FragmentFirstBinding
@@ -41,7 +38,7 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
                 setCounter(counter)
             }
             dialogBtn.setOnClickListener{
-                MyDialogFragment(counter) {
+                MyDialogFragment.getInstance(counter) {
                     counter = it
                     setCounter(counter)
                 }.show(parentFragmentManager, null)

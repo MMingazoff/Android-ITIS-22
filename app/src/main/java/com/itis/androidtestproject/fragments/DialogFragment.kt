@@ -3,16 +3,19 @@ package com.itis.androidtestproject.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.DialogFragment
+import com.itis.androidtestproject.Constant
 import com.itis.androidtestproject.R
 import com.itis.androidtestproject.databinding.FragmentDialogBinding
 
-class MyDialogFragment(private var counter: Int, val setNewCounter: (Int) -> Unit) : DialogFragment(R.layout.fragment_dialog) {
-
+class MyDialogFragment : DialogFragment(R.layout.fragment_dialog) {
+    private lateinit var setNewCounter: (Int) -> Unit
     private var binding: FragmentDialogBinding? = null
+    private var counter: Int = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDialogBinding.bind(view)
+        arguments?.getInt(Constant.COUNTER)?.let { counter = it }
         setClickListeners()
     }
 
@@ -52,5 +55,14 @@ class MyDialogFragment(private var counter: Int, val setNewCounter: (Int) -> Uni
     override fun onDestroy() {
         super.onDestroy()
         binding = null
+    }
+
+    companion object {
+        fun getInstance(counter: Int, setNewCounter: (Int) -> Unit) = MyDialogFragment().apply {
+            arguments = Bundle().apply {
+                putInt(Constant.COUNTER, counter)
+            }
+            this.setNewCounter = setNewCounter
+        }
     }
 }
